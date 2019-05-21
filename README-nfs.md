@@ -1,12 +1,19 @@
-To get nfs, memcache and db sessions to work:
+To get nfs and db sessions to work:
 
 Preliminary: 
 
 Clone jisc-collections-symfony into the same directory as this README.
 
+run 
+
+```
+./scipts/setup_native_nfs_on_osx.sh
+```
+
 run composer inside the container:
 
 ```
+make shell
 composer install
 ```
 
@@ -62,5 +69,5 @@ Import your db dump
 mysql -uroot -ppassword -hmariadb php < /var/www/html/dump.sql
 mysql -uroot -ppassword  -hmariadb php < /var/www/html/create_sess.sql
 
-8.  Visit your site using port 9000 ( diffferent from 8000 so that you can have the old one running
+8.  Visit your site using port 9000 - localhost:9000 -  ( diffferent from 8000 so that you can have the old one running
 if you need to ).
