@@ -13,7 +13,8 @@ services:
 #    volumes:
 #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 #      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
-
+    volumes:    
+      - mysql-sync:/var/lib/mysql:nocopy
 #  postgres:
 #    image: wodby/postgres:$POSTGRES_TAG
 #    container_name: "${PROJECT_NAME}_postgres"
@@ -37,6 +38,9 @@ services:
       DB_NAME: $DB_NAME
       PHP_FPM_USER: wodby
       PHP_FPM_GROUP: wodby
+      PHP_MEMORY_LIMIT: 4024M
+      PHP_FPM_PM_MAX_SPARE_SERVERS: 1
+      PHP_FPM_PM_START_SERVERS: 1
 ## Read instructions at https://wodby.com/stacks/php/docs/local/xdebug/
 #      PHP_XDEBUG: 1
 #      PHP_XDEBUG_DEFAULT_ENABLE: 1
@@ -45,14 +49,15 @@ services:
 #      PHP_XDEBUG_REMOTE_HOST: 172.17.0.1 # Linux
 #      PHP_XDEBUG_REMOTE_HOST: 10.254.254.254 # macOS
 #      PHP_XDEBUG_REMOTE_HOST: 10.0.75.1 # Windows
-    volumes:
-      - ./:/var/www/html
+#    volumes:
+#      - ./:/var/www/html
 ## For macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
 #      - ./:/var/www/html:cached # User-guided caching
 #      - docker-sync:/var/www/html # Docker-sync
 ## For XHProf and Xdebug profiler traces
 #      - files:/mnt/files
-
+    volumes:
+      - php-sync:/var/www/html:nocopy # nocopy is important
   nginx:
     image: wodby/nginx:$NGINX_TAG
     container_name: "${PROJECT_NAME}_nginx"
@@ -64,16 +69,19 @@ services:
       NGINX_BACKEND_HOST: php
       NGINX_VHOST_PRESET: php
       NGINX_SERVER_ROOT: /var/www/html/public
-    volumes:
-      - ./:/var/www/html
+#    volumes:
+#      - ./:/var/www/html
 # Options for macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
 #      - ./:/var/www/html:cached # User-guided caching
 #      - docker-sync:/var/www/html # Docker-sync
+    volumes:
+      - nginx-sync:/var/www/html:nocopy # nocopy is important
     labels:
       - 'traefik.backend=${PROJECT_NAME}_nginx'
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
-
+    ports:
+      - 9000:80
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"
@@ -101,7 +109,8 @@ services:
       - 'traefik.backend=${PROJECT_NAME}_mailhog'
       - 'traefik.port=8025'
       - 'traefik.frontend.rule=Host:mailhog.${PROJECT_BASE_URL}'
-
+    ports:
+      - 8025:8025
 #  varnish:
 #    image: wodby/varnish:$VARNISH_TAG
 #    container_name: "${PROJECT_NAME}_varnish"
@@ -267,3 +276,11 @@ services:
 #    external: true
 ## For Xdebug profiler
 #  files:
+
+volumes:
+  php-sync:
+    external: true
+  nginx-sync:
+    external: true
+  mysql-sync:
+    external: true
