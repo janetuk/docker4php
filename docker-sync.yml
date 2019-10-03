@@ -5,9 +5,8 @@ options:
 syncs:
   php-sync: # tip: add -sync and you keep consistent names as a convention
     sync_args: ["-perms=0"]
-    src: './jisc-collections-symfony'
-    # sync_strategy: 'native_osx' # not needed, this is the default now
-    sync_excludes: ['ignored_folder', '.ignored_dot_folder']
+    src: './jisc-collections-symfony/src'
+    sync_excludes: ['assets','data','database','node_modules','tests','var']
 #  php-cli-sync: # tip: add -sync and you keep consistent names as a convention
 #    src: './jisc-collections-symfony'
 #    # sync_strategy: 'native_osx' # not needed, this is the default now
@@ -15,8 +14,9 @@ syncs:
   nginx-sync: # tip: add -sync and you keep consistent names as a convention
     sync_args: ["-perms=0"]
     src: './jisc-collections-symfony'
+    sync_exludes: ['src','config','data','database','node_modules','tests','var','vendor']
     # sync_strategy: 'native_osx' # not needed, this is the default now
-    sync_excludes: ['ignored_folder', '.ignored_dot_folder']
-  mysql-sync: 
-    src: './data'
-    sync_excludes: ['ignored_folder', '.ignored_dot_folder']
+#    sync_excludes: ['ignored_folder', '.ignored_dot_folder']
+#  mysql-sync: 
+#    src: './data'
+#    sync_excludes: ['ignored_folder', '.ignored_dot_folder']

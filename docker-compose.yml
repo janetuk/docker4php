@@ -13,8 +13,8 @@ services:
 #    volumes:
 #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 #      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
-    volumes:    
-      - mysql-sync:/var/lib/mysql:nocopy
+#    volumes:    
+#      - mysql-sync:/var/lib/mysql:nocopy
 #  postgres:
 #    image: wodby/postgres:$POSTGRES_TAG
 #    container_name: "${PROJECT_NAME}_postgres"
@@ -43,7 +43,7 @@ services:
       PHP_FPM_PM_START_SERVERS: 1
     volumes:
       - php-sync:/var/www/html:nocopy # nocopy is important
-
+       
 
 
   php-cli:
@@ -61,8 +61,8 @@ services:
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
     volumes:
-      - php-sync:/var/www/html:nocopy # nocopy is importana
-
+#      - php-sync-src:/var/www/html:nocopy # nocopy is importana
+      - php-sync:/var/www/html:nocopy
   nginx:
     image: wodby/nginx:$NGINX_TAG
     container_name: "${PROJECT_NAME}_nginx"
@@ -283,11 +283,13 @@ services:
 #  files:
 
 volumes:
+#  php-sync-src:
+#    external: true
   php-sync:
     external: true
   php-cli-sync:
     external: true
   nginx-sync:
     external: true
-  mysql-sync:
-    external: true
+#  mysql-sync:
+#    external: true
