@@ -25,6 +25,9 @@ ps:
 shell:
 	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_php_cli' --format "{{ .ID }}") sh
 
+
+fpm:
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=wodby/php:7.2-dev-4.11.5 --format '{{ .ID }}'  ) bash
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
 
