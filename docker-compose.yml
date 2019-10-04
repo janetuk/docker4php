@@ -2,19 +2,21 @@ version: "3"
 
 services:
   mariadb:
-#    image: wodby/mariadb:$MARIADB_TAG
-    image: mariadb
+    image: wodby/mariadb:$MARIADB_TAG
+#    image: mariadb
     container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
+    ports:
+      - "33006:3306"
     environment:
       MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
       MYSQL_DATABASE: $DB_NAME
       MYSQL_USER: $DB_USER
       MYSQL_PASSWORD: $DB_PASSWORD
-    user: mysql
-    volumes:
-      - nfsmountmysql:/var/lib/mysql
-
+#    user: root
+#    volumes:
+#      - nfsmountmysql:/var/lib/mysql
+#      - /Users/neil.mckett/mysql_data:/var/lib/mysql
 #    volumes:
 #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 #      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
@@ -266,7 +268,7 @@ services:
 #      - 'traefik.frontend.rule=Host:portainer.${PROJECT_BASE_URL}'
 
   traefik:
-    image: traefik
+    image: traefik:v1.7.16
     container_name: "${PROJECT_NAME}_traefik"
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
