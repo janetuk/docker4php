@@ -2,7 +2,8 @@ version: "3"
 
 services:
   mariadb:
-    image: wodby/mariadb:$MARIADB_TAG
+    #image: wodby/mariadb:$MARIADB_TAG
+    image: mariadb
     container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
     environment:
@@ -287,8 +288,8 @@ volumes:
 #    external: true
   php-sync:
     external: true
-  php-cli-sync:
-    external: true
+  #php-cli-sync:
+  #  external: true
   nginx-sync:
     external: true
 #  mysql-sync:

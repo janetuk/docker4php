@@ -5,7 +5,7 @@ options:
 syncs:
   php-sync: # tip: add -sync and you keep consistent names as a convention
     sync_args: ["-perms=0"]
-    src: './jisc-collections-symfony/src'
+    src: './jisc-collections-symfony'
     sync_excludes: ['assets','data','database','node_modules','tests','var']
 #  php-cli-sync: # tip: add -sync and you keep consistent names as a convention
 #    src: './jisc-collections-symfony'
