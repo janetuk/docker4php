@@ -8,11 +8,11 @@ up:
 	@echo "Starting up containers for for $(PROJECT_NAME)..."
 	docker-compose pull
 	docker-compose up -d --remove-orphans
-	dir=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))        
-	cd $(dir)
-	rsync-setup/php/setup
-	rsync-setup/php/client-start-sync.sh 
-	rsync-setup/php/watch.sh
+	@dir=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))        
+	@cd $(dir)
+	@rsync-setup/php/setup >& /dev/null
+	@rsync-setup/php/client-start-sync.sh  >& /dev/null
+	@rsync-setup/php/watch.sh >& /dev/null &
 
 down: stop
 
