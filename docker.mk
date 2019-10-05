@@ -19,6 +19,7 @@ down: stop
 stop:
 	@echo "Stopping containers for $(PROJECT_NAME)..."
 	@docker-compose stop
+	@rsync-setup/php/stop-fswatch.sh
 
 prune:
 	@echo "Removing containers for $(PROJECT_NAME)..."
