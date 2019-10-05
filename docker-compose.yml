@@ -30,6 +30,8 @@ services:
 
   php:
     image: wodby/php:$PHP_TAG
+    #build: ./containers/php 
+    #image: php-quick:latest
     container_name: "${PROJECT_NAME}_php"
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
@@ -42,9 +44,10 @@ services:
       PHP_MEMORY_LIMIT: 4024M
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
-    volumes:
-      - php-sync:/var/www/html:nocopy # nocopy is important
-       
+#    volumes:
+#      - php-sync:/var/www/html:nocopy # nocopy is important
+    ports:
+      - 10873:873       
 
 
   php-cli:
@@ -61,9 +64,9 @@ services:
       PHP_MEMORY_LIMIT: 4024M
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
-    volumes:
-#      - php-sync-src:/var/www/html:nocopy # nocopy is importana
-      - php-sync:/var/www/html:nocopy
+#j    volumes:
+##      - php-sync-src:/var/www/html:nocopy # nocopy is importana
+#      - php-sync:/var/www/html:nocopy
   nginx:
     image: wodby/nginx:$NGINX_TAG
     container_name: "${PROJECT_NAME}_nginx"

@@ -8,7 +8,10 @@ up:
 	@echo "Starting up containers for for $(PROJECT_NAME)..."
 	docker-compose pull
 	docker-compose up -d --remove-orphans
-
+	dir=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))        
+	cd $(dir)
+	rsync-setup/php/setup
+	rsync-setup/php/client-start-sync.sh 
 down: stop
 
 stop:
@@ -27,7 +30,7 @@ shell:
 
 
 fpm:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=wodby/php:7.2-dev-4.11.5 --format '{{ .ID }}'  ) bash
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=docker4phpnewnfs_php --format '{{ .ID }}'  ) sh
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
 
