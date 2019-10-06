@@ -1,0 +1,16 @@
+cd `dirname $0`
+c=`docker ps | grep my_php7_project_php_cli | awk '{ print $1 }'`
+#echo $c
+docker cp ./inetd.conf $c:/etc
+docker cp ./rsync-stream $c:/etc/xinetd.d
+docker cp ./rsyncd.conf  $c:/etc
+docker exec -i $c bash -c 'ps -ax | grep inet | awk "{ print \$1 }" | xargs kill -9' ;#>& /dev/null
+docker exec -i $c bash -c "( yum install -y inetd rsync  )"
+#docker exec -i $c bash -c "( xinetd -dontfork -stayalive ) &" ;#>& /dev/null
+
+
+docker exec -i $c  bash -c "ps -ax | grep rsync  |awk '{ print \$1 }'| xargs kill -9  "  >& /dev/null 
+
+
+docker exec -i $c bash -c "rsync --daemon" ;# >& /dev/null
+
