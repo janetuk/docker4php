@@ -1,0 +1,7 @@
+cd `dirname $0`
+c=`docker ps | grep wodby\/nginx | awk '{ print $1 }'`
+echo $c
+docker cp ./inetd.conf $c:/etc
+docker cp ./rsyncd.conf $c:/etc
+docker exec -i $c bash -c 'ps -a | grep net | awk "{ print \$1 }" | sudo xargs kill -9' >& /dev/null
+docker exec -i $c sudo bash -c "apk add busybox-extras rsync  ; inetd" >& /dev/null
