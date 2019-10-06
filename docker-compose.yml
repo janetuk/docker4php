@@ -64,11 +64,14 @@ services:
       PHP_MEMORY_LIMIT: 4024M
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
+    ports:
+      - 30873:873
 #j    volumes:
 ##      - php-sync-src:/var/www/html:nocopy # nocopy is importana
 #      - php-sync:/var/www/html:nocopy
   nginx:
-    image: wodby/nginx:$NGINX_TAG
+    #image: wodby/nginx:$NGINX_TAG
+    build: ./build/nginx
     container_name: "${PROJECT_NAME}_nginx"
     depends_on:
       - php
@@ -78,6 +81,8 @@ services:
       NGINX_BACKEND_HOST: php
       NGINX_VHOST_PRESET: php
       NGINX_SERVER_ROOT: /var/www/html/public
+      WODBY_USER_ID: 0
+      WODBY_GROUP_ID: 0
 #    volumes:
 #      - ./:/var/www/html
 # Options for macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
@@ -89,8 +94,8 @@ services:
       - 'traefik.backend=${PROJECT_NAME}_nginx'
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
-#    ports:
-#      - 9000:80
+    ports:
+      - 20873:873
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"

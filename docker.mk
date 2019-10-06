@@ -13,6 +13,12 @@ up:
 	@rsync-setup/php/setup >& /dev/null
 	@rsync-setup/php/client-start-sync.sh  >& /dev/null
 	@rsync-setup/php/watch.sh >& /dev/null &
+	@rsync-setup/nginx/setup >& /dev/null
+	@rsync-setup/nginx/client-start-sync.sh >& /dev/null
+	@rsync-setup/nginx/watch.sh >& /dev/null & 
+	@rsync-setup/cli/setup >& /dev/null
+	@rsync-setup/cli/client-start-sync.sh >& /dev/null
+	@rsync-setup/cli/watch.sh >& /dev/null & 
 
 down: stop
 
@@ -37,6 +43,8 @@ fpm:
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
 
+nginx:
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=docker4phpnewnfs_nginx    --format '{{ .ID }}'  ) sh
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:
