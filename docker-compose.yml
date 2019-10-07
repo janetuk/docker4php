@@ -83,6 +83,7 @@ services:
       NGINX_SERVER_ROOT: /var/www/html/public
       WODBY_USER_ID: 0
       WODBY_GROUP_ID: 0
+      NGINX_USER: root
 #    volumes:
 #      - ./:/var/www/html
 # Options for macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
