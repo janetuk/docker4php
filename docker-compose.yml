@@ -27,6 +27,8 @@ services:
 #    volumes:
 #      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
 #      - /path/to/postgres/data/on/host:/var/lib/postgresql/data # I want to manage volumes manually.
+    ports:
+      - "33006:3306"
 
   php:
     image: wodby/php:$PHP_TAG

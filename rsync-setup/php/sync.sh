@@ -1,3 +1,7 @@
+if [ -f `dirname $0`/../../inotifywait.lockfile
+exit 0
+fi
+
 rel=`echo $1 | sed "s@$PWD/jisc-collections-symfony@@" `
 sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"
 for sync_item in `cat $sync_list_conf`
