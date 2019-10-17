@@ -1,4 +1,5 @@
-if [ -f `dirname $0`/../../inotifywait.lockfile
+if [ -f `dirname $0`/../../jisc-collections-symfony/inotifywait.lockfile ] ; then
+echo "Not syncing because of lockfile"
 exit 0
 fi
 
