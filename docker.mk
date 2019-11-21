@@ -40,6 +40,10 @@ shell:
 
 fpm:
 	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=wodby/php:7.2-dev-4.11.5 --format '{{ .ID }}'  ) sh
+
+fpmi:
+	docker exec -i -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=wodby/php:7.2-dev-4.11.5 --format '{{ .ID }}'  ) sh -c "${CMD}"
+
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
 
