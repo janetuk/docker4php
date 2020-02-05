@@ -3,7 +3,8 @@ version: "3"
 services:
   mariadb:
     #image: wodby/mariadb:$MARIADB_TAG
-    image: mariadb
+#    image: mariadb
+    image: mariadb:10.2.22
     container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
     environment:
@@ -47,6 +48,9 @@ services:
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
 #    volumes:
+#      - ./src/Enity:/var/www/html/src/Entity
+#      - ./tests/_output:/var/www/html/tests/_output
+#    volumes:
 #      - php-sync:/var/www/html:nocopy # nocopy is important
     ports:
       - 10873:873       
@@ -68,6 +72,9 @@ services:
       PHP_FPM_PM_START_SERVERS: 1
     ports:
       - 30873:873
+    volumes:
+      - ./src/Entity:/var/www/html/src/Entity:consistent
+      - ./tests/_output:/var/www/html/tests/_output:consistent
 #j    volumes:
 ##      - php-sync-src:/var/www/html:nocopy # nocopy is importana
 #      - php-sync:/var/www/html:nocopy
