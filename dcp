@@ -1,0 +1,36 @@
+#!/bin/bash
+
+PATH=$PATH:/usr/local/bin
+
+cd `dirname $0`
+#container=`docker ps | grep kness | sed 's/.*my/my/'`
+container=my_php7_project_php
+echo $container
+
+files=`docker exec -i $container bash -c "find /var/www/html -type f -mmin -0.02 | grep -v cache"`
+
+echo $files
+
+for x in $files 
+do
+
+local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's/src/src.save/'`
+echo "$x -> $local_file"
+dir=`dirname $local_file`
+echo $dir
+mkdir -p $dir
+docker cp ${container}:$x $local_file
+
+done
+
+for x in $files
+do
+
+local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's/src/src.save/'`
+real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's@src@jisc-collections-symfony/src@'`
+echo "$local_file -> $real_local_file"
+#docker cp ${container}:$x $local_file
+cp $local_file  $real_local_file
+
+done
+

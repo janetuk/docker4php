@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ssh -i /tmp/id_rsa $USER@10.254.254.254 $PWD/dcp

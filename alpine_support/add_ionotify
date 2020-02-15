@@ -1,0 +1,3 @@
+container=my_php7_project_php
+docker exec -i --user root $container apk upgrade --no-cache
+docker exec -i --user roor $container apk add --upgrade --no-cache bash inotify-tools

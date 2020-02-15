@@ -1,0 +1,3 @@
+cd `dirname $0`
+cat rsa.script | sed "s/\$USER/$USER/"  | sed "s@\$PWD@$PWD@" | sed 's/alpine_support\///'
+
