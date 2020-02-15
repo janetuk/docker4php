@@ -1,6 +1,13 @@
 cd `dirname $0`
 ../rsync-setup/common/ioloopback
 container=my_php7_project_php
+
+#sqlsrv files:
+docker cp  ./install_sqlsrv my_php7_project_php:/tmp/install_sqlsrv
+docker cp docker-php-ext-sqlsrv.ini my_php7_project_php:/usr/local/etc/php/conf.d/docker-php-ext-sqlsrv.ini
+docker cp docker-php-ext-pdo_sqlsrv.ini my_php7_project_php:/usr/local/etc/php/conf.d/docker-php-ext-pdo_sqlsrv.ini
+docker exec -i my_php7_project_php /tmp/install_sqlsrv
+
 docker cp watchman $container:/usr/local/bin/watchman
 docker cp libcrypto.so.1.0.0 $container:/lib/libcrypto.so.1.0.0
 docker exec --user root -i $container  mkdir /usr/local/var/run/watchman
@@ -13,5 +20,4 @@ docker exec -i --user root $container chmod 777 /tmp/ssh.script
 docker exec -i --user root $container watchman watch /var/www/html/src
 docker exec -i --user root $container watchman -- trigger  /var/www/html/src sync '*' -- /tmp/ssh.script
 ./update_authorized_keys
-
 

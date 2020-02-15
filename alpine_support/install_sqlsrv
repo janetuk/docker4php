@@ -1,0 +1,30 @@
+    # install the build pre-requisites.
+echo starting \
+    && apk add --no-cache --virtual .build-deps autoconf file g++ make pkgconf re2c php7-dev unixodbc-dev libmcrypt-dev \
+    && curl https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.5.1.1-1_amd64.apk -O \
+    && curl https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_17.5.1.1-1_amd64.apk -O \
+    && apk add --allow-untrusted msodbcsql17_17.5.1.1-1_amd64.apk \
+    && apk add --allow-untrusted mssql-tools_17.5.1.1-1_amd64.apk \
+    && echo 'export LC_ALL=C >> ~/.bash_profile \
+    && echo 'export LC_ALL=C >> ~/.bashrc \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
+    && /bin/bash -c "source ~/.bashrc" \
+    && pecl install mcrypt-1.0.2 \
+    && pecl install pdo_sqlsrv \
+    && pecl install sqlsrv \
+    && pecl install igbinary \
+    && pecl install msgpack \
+    && echo extension=mcrypt.so > /etc/php7/conf.d/20-mcrypt.ini \
+    && echo extension=pdo_sqlsrv.so > /etc/php7/conf.d/30-pdo_sqlsrv.ini \
+    && echo extension=sqlsrv.so > /etc/php7/conf.d/20-sqlsrv.ini \
+    && echo extension=igbinary.so > /etc/php7/conf.d/20-igbinary.ini \
+    && echo extension=msgpack.so > /etc/php7/conf.d/20-msgpack.ini \
+    && export LC_ALL=C \
+    && apk del .build-deps \
+    && rm msodbcsql17_17.5.1.1-1_amd64.apk \
+    && rm mssql-tools_17.5.1.1-1_amd64.apk \
+&& echo done
+&& echo done            
+#    && docker-run-bootstrap \
+#    && docker-image-cleanup                
