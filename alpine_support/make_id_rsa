@@ -1,0 +1,4 @@
+if [ ! -f ~/.ssh/id_rsa ]
+ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
+chmod 400  ~/.ssh/id_*
+fi

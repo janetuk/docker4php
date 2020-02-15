@@ -1,12 +1,17 @@
+cd `dirname $0`
+../rsync-setup/common/ioloopback
 container=my_php7_project_php
 docker cp watchman $container:/usr/local/bin/watchman
-docker cp libcrypto.so.1.1 $container:/lib/libcrypto.so.1.1
+docker cp libcrypto.so.1.0.0 $container:/lib/libcrypto.so.1.0.0
 docker exec --user root -i $container  mkdir /usr/local/var/run/watchman
 
-docker cp ~/.ssh/id_rsa $container/tmp/id_rsa
+docker cp ~/.ssh/id_rsa $container:/tmp/id_rsa
 ./render.rsa.script > /tmp/ssh.script
 docker cp /tmp/ssh.script $container:/tmp/ssh.script
-docker exec -i $container chmod 400 /tmp/id_rsa
-docker exec -i $container chmod 777 /tmp/ssh.script
-docker exec -i $container watchman watch /var/www/html/src
-docker exec -i $container watchman -- trigger  /var/www/html/src sync '*' /tmp/ssh.script
+docker exec -i --user root $container chmod 400 /tmp/id_rsa
+docker exec -i --user root $container chmod 777 /tmp/ssh.script
+docker exec -i --user root $container watchman watch /var/www/html/src
+docker exec -i --user root $container watchman -- trigger  /var/www/html/src sync '*' -- /tmp/ssh.script
+./update_authorized_keys
+
+

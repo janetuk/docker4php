@@ -19,7 +19,7 @@ up:
 	@rsync-setup/cli/setup >& /dev/null
 	@rsync-setup/cli/client-start-sync.sh >& /dev/null
 	@rsync-setup/cli/watch.sh >& /dev/null & 
-
+        @alpine_support/cp_to_container >& /dev/null 
 down: stop
 
 stop:

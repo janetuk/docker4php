@@ -2,6 +2,17 @@
 
 [![Build Status](https://travis-ci.org/wodby/docker4php.svg?branch=master)](https://travis-ci.org/wodby/docker4php)
 
+## Note about customisations
+
+You should have an ~/.ssh/id_rsa and ~/.ssh/id_rsa.pub file available
+
+If not run:
+
+```
+ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
+chmod 400 ~/.ssh/id_*
+```
+
 ## Introduction
 
 Docker4PHP is a set of docker images optimized for PHP. Use `docker-compose.yml` file from the [latest stable release](https://github.com/wodby/docker4php/releases) to spin up local environment on Linux, Mac OS X and Windows. 
