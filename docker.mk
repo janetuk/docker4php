@@ -16,9 +16,6 @@ up:
 	@rsync-setup/nginx/setup >& /dev/null
 	@rsync-setup/nginx/client-start-sync.sh >& /dev/null
 	@rsync-setup/nginx/watch.sh >& /dev/null & 
-	@rsync-setup/cli/setup >& /dev/null
-	@rsync-setup/cli/client-start-sync.sh >& /dev/null
-	@rsync-setup/cli/watch.sh >& /dev/null & 
 	@alpine_support/cp_to_container >& /dev/null 
 down: stop
 

@@ -32,7 +32,7 @@ services:
       - "33006:3306"
 
   php:
-    image: wodby/php:$PHP_TAG
+    image: knesser2/php
     #build: ./containers/php 
     #image: php-quick:latest
     container_name: "${PROJECT_NAME}_php"
@@ -47,37 +47,10 @@ services:
       PHP_MEMORY_LIMIT: 4024M
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
-#    volumes:
-#      - ./src/Enity:/var/www/html/src/Entity
-#      - ./tests/_output:/var/www/html/tests/_output
-#    volumes:
-#      - php-sync:/var/www/html:nocopy # nocopy is important
+    command: php-fpm
     ports:
       - 10873:873       
 
-
-  php-cli:
-    image: knesser/centos-php-fpm
-    container_name: "${PROJECT_NAME}_php_cli"
-    environment:
-      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
-      DB_HOST: $DB_HOST
-      DB_USER: $DB_USER
-      DB_PASSWORD: $DB_PASSWORD
-      DB_NAME: $DB_NAME
-      PHP_FPM_USER: wodby
-      PHP_FPM_GROUP: wodby
-      PHP_MEMORY_LIMIT: 4024M
-      PHP_FPM_PM_MAX_SPARE_SERVERS: 1
-      PHP_FPM_PM_START_SERVERS: 1
-    ports:
-      - 30873:873
-    volumes:
-      - ./src/Entity:/var/www/html/src/Entity:consistent
-      - ./tests/_output:/var/www/html/tests/_output:consistent
-#j    volumes:
-##      - php-sync-src:/var/www/html:nocopy # nocopy is importana
-#      - php-sync:/var/www/html:nocopy
   nginx:
     #image: wodby/nginx:$NGINX_TAG
     build: ./build/nginx
@@ -93,13 +66,6 @@ services:
       WODBY_USER_ID: 0
       WODBY_GROUP_ID: 0
       NGINX_USER: root
-#    volumes:
-#      - ./:/var/www/html
-# Options for macOS users (https://wodby.com/stacks/php/docs/local/docker-for-mac/)
-#      - ./:/var/www/html:cached # User-guided caching
-#      - docker-sync:/var/www/html # Docker-sync
-#    volumes:
-#      - nginx-sync:/var/www/html:nocopy # nocopy is important
     labels:
       - 'traefik.backend=${PROJECT_NAME}_nginx'
       - 'traefik.port=80'
@@ -273,17 +239,6 @@ services:
 #      - 'traefik.port=8080'
 #      - 'traefik.frontend.rule=Host:xhprof.${PROJECT_BASE_URL}'
 
-  portainer:
-    image: portainer/portainer
-    container_name: "${PROJECT_NAME}_portainer"
-    command: --no-auth -H unix:///var/run/docker.sock
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - 'traefik.backend=${PROJECT_NAME}_portainer'
-      - 'traefik.port=9000'
-      - 'traefik.frontend.rule=Host:portainer.${PROJECT_BASE_URL}'
-
   traefik:
     image: traefik:1.7.16
     container_name: "${PROJECT_NAME}_traefik"
@@ -293,22 +248,3 @@ services:
 #      - '8080:8080' # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-#volumes:
-## Docker-sync for macOS users
-#  docker-sync:
-#    external: true
-## For Xdebug profiler
-#  files:
-
-#volumes:
-#  php-sync-src:
-#    external: true
-#  php-sync:
-#    external: true
-  #php-cli-sync:
-  #  external: true
-#  nginx-sync:
-#    external: true
-#  mysql-sync:
-#    external: true

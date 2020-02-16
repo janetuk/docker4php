@@ -1,5 +1,5 @@
 cd `dirname $0`
-c=`docker ps | grep wodby\/php | awk '{ print $1 }'`
+c=`docker ps | grep knesser2\/php | awk '{ print $1 }'`
 echo $c
 docker cp ./inetd.conf $c:/etc
 docker cp ./rsyncd.conf $c:/etc
