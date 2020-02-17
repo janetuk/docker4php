@@ -1,5 +1,7 @@
 #!/bin/bash 
 cd `dirname $0`
+
+./make_id_rsa
 ../rsync-setup/common/ioloopback
 container=my_php7_project_php
 
