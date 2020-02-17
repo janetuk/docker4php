@@ -1,8 +1,11 @@
+#!/bin/bash -x 
+
+cd `dirname $0`
 x=`cat ~/.ssh/docker-php-id_rsa.pub` 
 touch ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 check=`grep "$x" ~/.ssh/authorized_keys`
-if [ "X$check" != "X" ] ; then
+if [ "X$check" == "X" ] ; then
 cat ~/.ssh/docker-php-id_rsa.pub >> ~/.ssh/authorized_keys
 fi
 chmod 400 ~/.ssh/authorized_keys
