@@ -36,7 +36,7 @@ shell:
 
 
 fpm:
-	docker exec --user root -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=wodby/php:7.2-dev-4.11.5 --format '{{ .ID }}'  ) bash
+	docker exec --user root -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=knesser2/php --format '{{ .ID }}'  ) bash
 
 fpmi:
 	docker exec -i -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=wodby/php:7.2-dev-4.11.5 --format '{{ .ID }}'  ) sh -c "${CMD}"

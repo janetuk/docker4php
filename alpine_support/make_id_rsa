@@ -1,4 +1,7 @@
-if [ ! -f ~/.ssh/id_rsa ]
-ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
-chmod 400  ~/.ssh/id_*
+#!/bin/bash
+
+if [ ! -f ~/.ssh/docker-php-id_rsa ] ; then
+#ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
+ssh-keygen -t rsa -b 4096  -f ~/.ssh/docker-php-id_rsa  -C "docker-php@jisc.ac.uk" -q -N ""
+chmod 400  ~/.ssh/docker-php-id_*
 fi
