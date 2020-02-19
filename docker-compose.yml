@@ -29,10 +29,11 @@ services:
 #      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
 #      - /path/to/postgres/data/on/host:/var/lib/postgresql/data # I want to manage volumes manually.
     ports:
-      - "33006:3306"
+      - "33007:3306"
 
   php:
-    image: knesser2/php
+    #image: knesser2/php
+    image: wodby/php:$PHP_TAG
     #build: ./containers/php 
     #image: php-quick:latest
     container_name: "${PROJECT_NAME}_php"
@@ -49,7 +50,7 @@ services:
       PHP_FPM_PM_START_SERVERS: 1
     command: php-fpm
     ports:
-      - 10873:873       
+      - 11873:873       
 
   nginx:
     #image: wodby/nginx:$NGINX_TAG
@@ -62,7 +63,7 @@ services:
       NGINX_ERROR_LOG_LEVEL: debug
       NGINX_BACKEND_HOST: php
       NGINX_VHOST_PRESET: php
-      NGINX_SERVER_ROOT: /var/www/html/public
+      NGINX_SERVER_ROOT: /var/www/html
       WODBY_USER_ID: 0
       WODBY_GROUP_ID: 0
       NGINX_USER: root
@@ -71,7 +72,7 @@ services:
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
     ports:
-      - 20873:873
+      - 21873:873
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"
@@ -97,10 +98,10 @@ services:
     container_name: "${PROJECT_NAME}_mailhog"
     labels:
       - 'traefik.backend=${PROJECT_NAME}_mailhog'
-      - 'traefik.port=8025'
+      - 'traefik.port=9025'
       - 'traefik.frontend.rule=Host:mailhog.${PROJECT_BASE_URL}'
     ports:
-      - 8025:8025
+      - 8125:8025
 #  varnish:
 #    image: wodby/varnish:$VARNISH_TAG
 #    container_name: "${PROJECT_NAME}_varnish"
@@ -244,7 +245,7 @@ services:
     container_name: "${PROJECT_NAME}_traefik"
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
-      - '8000:80'
+      - '9000:80'
 #      - '8080:8080' # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
