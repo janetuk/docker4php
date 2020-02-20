@@ -1,5 +1,9 @@
 source `dirname $0`/../../.env
 
+if [ -f `dirname $0`/../../containerSync ] ; then
+exit
+fi
+
 if [ -f `dirname $0`/../../$WEB_ROOT/inotifywait.lockfile ] ; then
 echo "Not syncing because of lockfile"
 exit 0

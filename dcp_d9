@@ -1,0 +1,70 @@
+#!/bin/bash
+
+cd `dirname $0`
+
+touch containerSync
+
+#interval=0.02
+interval=0.2
+
+if [ "X$1" != "X" ] ; then
+interval=$1
+fi
+folder=sites
+
+PATH=$PATH:/usr/local/bin
+
+cd `dirname $0`
+source .env
+#container=`docker ps | grep kness | sed 's/.*my/my/'`
+container=${PROJECT_NAME}_php
+#echo $container
+
+files=`docker exec -i $container bash -c "find /var/www/html -type f -mmin -$interval | grep -v cache"`
+
+#echo $files
+
+for x in $files 
+do
+
+
+excludeFile=`echo $x | grep $syncExclude `
+if [  "X$excludeFile" = "X" ] ; then
+#echo $x
+local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s/$folder/${folder}.save/"`
+#echo "$x -> $local_file"
+dir=`dirname $local_file`
+#echo $dir
+mkdir -p $dir
+docker cp ${container}:$x $local_file
+
+else 
+echo $x not copied
+fi
+
+done
+
+for x in $files
+do
+
+
+excludeFile=`echo $x | grep $syncExclude `
+if [  "X$excludeFile" = "X" ] ; then
+
+local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$folder@${folder}.save@"`
+real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$folder@$WEB_ROOT/$folder@"`
+real_local_file_dir=`dirname $real_local_file`
+echo $real_local_file_dir
+if [ ! -d $real_local_file_dir ] ; then
+   mkdir -p $real_local_file_dir
+fi
+
+#echo "$local_file -> $real_local_file"
+#docker cp ${container}:$x $local_file
+cp $local_file  $real_local_file
+
+fi
+
+done
+
+rm containerSync

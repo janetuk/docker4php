@@ -73,6 +73,8 @@ services:
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
     ports:
       - 21873:873
+    command:
+      tail -f /tmp
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"

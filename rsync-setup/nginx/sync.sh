@@ -1,3 +1,8 @@
+if [ -f `dirname $0`/../../containerSync ] ; then
+exit
+fi
+
+
 source `dirname $0`/../../.env
 rel=`echo $1 | sed "s@$PWD/$WEB_ROOT@@" `
 sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"
