@@ -3,7 +3,11 @@ cd `dirname $0`
 
 source ../.env
 ./make_id_rsa
-../rsync-setup/common/ioloopback
+local_ip_not_defined=`ping -c 1 -t 1 10.254.254.253 | grep 100.0%`
+
+if [ "X$local_ip_not_defined" = "X" ] ; then
+    ../rsync-setup/common/ioloopback
+fi
 container=${PROJECT_NAME}_php 
 
 #sqlsrv files:
