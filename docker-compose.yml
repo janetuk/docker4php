@@ -54,7 +54,8 @@ services:
 
   nginx:
     #image: wodby/nginx:$NGINX_TAG
-    build: ./build/nginx
+    #build: ./build/nginx
+    image: knesser2/nginx
     container_name: "${PROJECT_NAME}_nginx"
     depends_on:
       - php
