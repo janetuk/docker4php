@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/bin/bash -x
 
 cd `dirname $0`
 
+mkdir -p .sync
+
 if [ -f containerSync ] ; then
 exit
+
 fi
 
 touch containerSync
@@ -38,8 +41,8 @@ local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$syncDir@.save.${syncDir
 echo "$x -> $local_file"
 dir=`dirname $local_file`
 #echo $dir
-mkdir -p $dir
-docker cp ${container}:$x $local_file
+mkdir -p .sync/$dir
+docker cp ${container}:$x .sync/$local_file
 
 else 
 echo $x not copied
@@ -63,12 +66,22 @@ if [ ! -d $real_local_file_dir ] ; then
 fi
 
 echo "$local_file -> $real_local_file"
-#docker cp ${container}:$x $local_file
-echo cp $local_file  $real_local_file
-cp $local_file  $real_local_file
+#docker cp ${container}:$x .sync/$local_file
+echo cp .sync/$local_file  $real_local_file
+diff=`diff .sync/$local_file  $real_local_file 2>/dev/null`
+echo "1 $diff"
+if [ "X$diff" != "X" -o ! -f $real_local_file ] ; then
+echo "2 $diff"
+cp .sync/$local_file  $real_local_file
+
+else
+sleep 0.1
+fi
 
 fi
 
 done
+
+#rm -rf .sync
 
 rm containerSync
