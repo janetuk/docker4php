@@ -9,7 +9,7 @@ fi
 touch containerSync
 
 #interval=0.02
-interval=0.15
+interval=0.1
 
 if [ "X$1" != "X" ] ; then
 interval=$1
