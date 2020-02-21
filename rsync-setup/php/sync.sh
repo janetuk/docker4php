@@ -31,7 +31,7 @@ check=`echo $rel | grep '^\/'$sync_item`
 if [  "X$check" != "X" ] ; then
 echo "syncing"
 rsync -avP ./$WEB_ROOT/$sync_item --delete --chmod=oug+rwx  \
---no-o --no-g --no-perms  rsync://localhost:10873/example
+--no-o --no-g --no-perms  rsync://localhost:${PHP_SYNC_PORT}/example
 
 exit
 fi

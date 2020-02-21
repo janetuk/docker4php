@@ -6,12 +6,12 @@ for directory in `cat $sync_list_conf`
 do
 
 rsync -avP ./$WEB_ROOT/$directory --delete --chmod=oug+rwx  \
---no-o --no-g --no-perms  rsync://localhost:11873/example/
+--no-o --no-g --no-perms  rsync://localhost:${PHP_SYNC_PORT}/example/
 
 done
 
 if [ -f '.env*' ] ; then
 rsync -avP ./$WEB_ROOT/.env* --delete --chmod=oug+rwx  \
---no-o --no-g --no-perms  rsync://localhost:11873/example/
+--no-o --no-g --no-perms  rsync://localhost:${PHP_STNC_PORT}/example/
 
 fi
