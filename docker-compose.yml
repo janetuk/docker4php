@@ -29,7 +29,7 @@ services:
 #      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
 #      - /path/to/postgres/data/on/host:/var/lib/postgresql/data # I want to manage volumes manually.
     ports:
-      - "33008:3306"
+      - "${HOST_MYSQL_PORT}:3306"
 
   php:
     #image: knesser2/php
@@ -50,7 +50,7 @@ services:
       PHP_FPM_PM_START_SERVERS: 1
     command: php-fpm
     ports:
-      - 12873:873
+      - "${HOST_PHP_SYNC_PORT}:873"
 
   nginx:
     #image: wodby/nginx:$NGINX_TAG
@@ -73,7 +73,7 @@ services:
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
     ports:
-      - 22873:873
+      - "${HOST_NGINX_SYNC_PORT}:873"
     command:
       nginx
 #  apache:
@@ -104,7 +104,7 @@ services:
       - 'traefik.port=9025'
       - 'traefik.frontend.rule=Host:mailhog.${PROJECT_BASE_URL}'
     ports:
-      - 8225:8025
+      - "${HOST_MAILHOG_PORT}:8025"
 #  varnish:
 #    image: wodby/varnish:$VARNISH_TAG
 #    container_name: "${PROJECT_NAME}_varnish"
@@ -248,7 +248,7 @@ services:
     container_name: "${PROJECT_NAME}_traefik"
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
-      - '7000:80'
+      - "${HOST_TRAEFIK_PORT}:80"
 #      - '8080:8080' # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
