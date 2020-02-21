@@ -14,7 +14,6 @@ interval=0.15
 if [ "X$1" != "X" ] ; then
 interval=$1
 fi
-folder=sites
 
 PATH=$PATH:/usr/local/bin
 
@@ -35,8 +34,8 @@ do
 excludeFile=`echo $x | grep $syncExclude `
 if [  "X$excludeFile" = "X" ] ; then
 #echo $x
-local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s/$folder/${folder}.save/"`
-#echo "$x -> $local_file"
+local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$syncDir@.save.${syncDir}@" | sed 's@^/@@'` 
+echo "$x -> $local_file"
 dir=`dirname $local_file`
 #echo $dir
 mkdir -p $dir
@@ -55,16 +54,17 @@ do
 excludeFile=`echo $x | grep $syncExclude `
 if [  "X$excludeFile" = "X" ] ; then
 
-local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$folder@${folder}.save@"`
-real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$folder@$WEB_ROOT/$folder@"`
+local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@$syncDir@.save.${syncDir}@"`
+real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed "s@^@$WEB_ROOT/@"`
 real_local_file_dir=`dirname $real_local_file`
-echo $real_local_file_dir
+echo rrrrrr "XX $real_local_file_dir XX"
 if [ ! -d $real_local_file_dir ] ; then
    mkdir -p $real_local_file_dir
 fi
 
-#echo "$local_file -> $real_local_file"
+echo "$local_file -> $real_local_file"
 #docker cp ${container}:$x $local_file
+echo cp $local_file  $real_local_file
 cp $local_file  $real_local_file
 
 fi

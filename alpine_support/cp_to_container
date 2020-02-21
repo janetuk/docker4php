@@ -32,3 +32,4 @@ docker exec -i --user root $container watchman -- trigger  /var/www/html/$syncDi
 docker cp sync_to_nginx      my_php7_project_d9b_php:/root/sync
 docker cp retry.php my_php7_project_d9b_php:/var/www/html/retry.php
 docker cp retry.php my_php7_project_d9b_nginx:/var/www/html/retry.php
+docker exec -i --user root $container chmod -R 777 /root
