@@ -29,3 +29,6 @@ docker exec -i --user root $container watchman watch /var/www/html/$syncDir
 docker exec -i --user root $container watchman -- trigger  /var/www/html/$syncDir sync '**/*' -- /tmp/ssh.script
 ./update_authorized_keys
 
+docker cp sync_to_nginx      my_php7_project_d9b_php:/root/sync
+docker cp retry.php my_php7_project_d9b_php:/var/www/html/retry.php
+docker cp retry.php my_php7_project_d9b_nginx:/var/www/html/retry.php

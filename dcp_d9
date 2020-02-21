@@ -2,10 +2,14 @@
 
 cd `dirname $0`
 
+if [ -f containerSync ] ; then
+exit
+fi
+
 touch containerSync
 
 #interval=0.02
-interval=0.2
+interval=0.15
 
 if [ "X$1" != "X" ] ; then
 interval=$1
