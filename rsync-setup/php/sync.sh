@@ -12,7 +12,7 @@ do
 
 check=`echo $rel | grep '^\/'$sync_item`
 
-if [ "X$check" != "X" ; then
+if [ "X$check" != "X" ] ; then
 exit
 fi
 

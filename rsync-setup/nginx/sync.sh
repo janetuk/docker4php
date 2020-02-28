@@ -1,3 +1,4 @@
+#!/bin/bash -x
 source `dirname $0`/../../.env
 rel=`echo $1 | sed "s@$PWD/jisc-collections-symfony@@" `
 sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"

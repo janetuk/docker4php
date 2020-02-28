@@ -1,5 +1,7 @@
 cd `dirname $0`
-c=`docker ps | grep knesser2\/php | awk '{ print $1 }'`
+source ../../.env
+
+c=`docker ps | grep ${PROJECT_NAME}_php | awk '{ print $1 }'`
 echo $c
 docker cp ./inetd.conf $c:/etc
 docker cp ./rsyncd.conf $c:/etc

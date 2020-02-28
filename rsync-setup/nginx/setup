@@ -1,5 +1,6 @@
 cd `dirname $0`
-c=`docker ps | grep my_php7_project_nginx  | awk '{ print $1 }'`
+source ../../.env
+c=`docker ps | grep ${PROJECT_NAME}_nginx  | awk '{ print $1 }'`
 #echo $c
 docker cp ./inetd.conf $c:/etc
 docker cp ./rsyncd.conf $c:/etc

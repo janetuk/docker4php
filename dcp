@@ -3,8 +3,9 @@
 PATH=$PATH:/usr/local/bin
 
 cd `dirname $0`
+source .env
 #container=`docker ps | grep kness | sed 's/.*my/my/'`
-container=my_php7_project_php
+container=${PROJECT_NAME}_php
 echo $container
 
 files=`docker exec -i $container bash -c "find /var/www/html -type f -mmin -0.02 | grep -v cache"`
