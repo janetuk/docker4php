@@ -2,9 +2,9 @@ pipeline {
 
   agent any 
 
-    environment{
-        REPO_EXISTS = fileExists 'data/web/drupal'
-    }
+  environment{
+    REPO_EXISTS = fileExists 'data/web/drupal'
+  }
 
 //  environment {
 //    IMAGE = 'registry.gitlab.com/XXXXX/bible-server'
@@ -35,7 +35,10 @@ pipeline {
         sh 'make'         
       }
     }
-
+    
+}    
+    
+  
 //    stage('Test') {
 //      steps {
 //        sh 'yarn'
@@ -73,3 +76,4 @@ pipeline {
     }
   }
 }
+
