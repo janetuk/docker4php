@@ -15,7 +15,7 @@ pipeline {
 
     stage('Checkout') {
       steps {
-        sh 'mkdir data/web'
+        sh 'mkdir -p data/web'
         sh 'git checkout https://github.com/janetuk/myjisc.git data/web/drupal'
         sh 'make'         
       }
