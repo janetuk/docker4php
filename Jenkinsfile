@@ -17,7 +17,7 @@ pipeline {
       steps {
         sh 'mkdir -p data/web'
         sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
-        sh '(cd data/web/drupal && checkout develop)'
+        sh '(cd data/web/drupal && git checkout develop)'
         sh 'make'         
       }
     }
