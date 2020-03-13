@@ -39,7 +39,6 @@ pipeline {
     
     stage('composer') {
       steps {
-        sh 'source .project_name && make fpm '
         sh "export CMD='composer install' ;  sh -c 'make fpmi '"
       }
     } 
