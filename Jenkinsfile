@@ -2,10 +2,10 @@ pipeline {
 
   agent { docker  }
 
-#  environment {
-#    IMAGE = 'registry.gitlab.com/XXXXX/bible-server'
-#    DOCKER_REGISTRY_CREDENTIALS = credentials('DOCKER_REGISTRY_CREDENTIALS')
-#  }
+//  environment {
+//    IMAGE = 'registry.gitlab.com/XXXXX/bible-server'
+//    DOCKER_REGISTRY_CREDENTIALS = credentials('DOCKER_REGISTRY_CREDENTIALS')
+//  }
 
   options {
     timeout(10)
@@ -21,32 +21,32 @@ pipeline {
       }
     }
 
-#    stage('Test') {
-#      steps {
-#        sh 'yarn'
-#        sh 'npm test'
-#      }
-#    }
+//    stage('Test') {
+//      steps {
+//        sh 'yarn'
+//        sh 'npm test'
+//      }
+//    }
 
-#    stage('Build') {
-#      when {
-#        branch '*/master'
-#      }
-#      steps {
-#        sh 'docker login -u ${DOCKER_REGISTRY_CREDENTIALS_USR} -p ${DOCKER_REGISTRY_CREDENTIALS_PSW} registry.gitlab.com'
-#        sh 'docker build -t ${IMAGE}:${BRANCH_NAME} .'
-#        sh 'docker push ${IMAGE}:${BRANCH_NAME}'
-#      }
-#    }
+//    stage('Build') {
+//      when {
+//        branch '*/master'
+//      }
+//      steps {
+//        sh 'docker login -u ${DOCKER_REGISTRY_CREDENTIALS_USR} -p ${DOCKER_REGISTRY_CREDENTIALS_PSW} registry.gitlab.com'
+//        sh 'docker build -t ${IMAGE}:${BRANCH_NAME} .'
+//        sh 'docker push ${IMAGE}:${BRANCH_NAME}'
+//      }
+//    }
 
-#    stage('Deploy') {
-#      when {
-#        branch '*/master'
-#      }
-#      steps {
-#        echo 'Deploying ..'
-#      }
-#    }
+//    stage('Deploy') {
+//      when {
+//        branch '*/master'
+//      }
+//      steps {
+//        echo 'Deploying ..'
+//      }
+//    }
   }
 
   post {
