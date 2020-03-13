@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { docker  }
+  agent any 
 
 //  environment {
 //    IMAGE = 'registry.gitlab.com/XXXXX/bible-server'
