@@ -17,3 +17,5 @@ rsync -avP ./$WEB_ROOT/.env* --delete --chmod=oug+rwx  \
 --no-o --no-g --no-perms  rsync://localhost:${PHP_STNC_PORT}/example/
 
 fi
+
+docker exec --user root -i ${PROJECT_NAME}_php chmod -R 777 /var/www/html
