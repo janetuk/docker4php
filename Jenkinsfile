@@ -17,7 +17,6 @@ pipeline {
       steps {
         sh 'mkdir -p data/web'
         def folder = new File( 'data/web/drupal' )
-
         if( !folder.exists() ) {
           sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
         }
