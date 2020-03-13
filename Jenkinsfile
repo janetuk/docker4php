@@ -2,6 +2,10 @@ pipeline {
 
   agent any 
 
+    environment{
+        REPO_EXISTS = fileExists 'data/web/drupal'
+    }
+
 //  environment {
 //    IMAGE = 'registry.gitlab.com/XXXXX/bible-server'
 //    DOCKER_REGISTRY_CREDENTIALS = credentials('DOCKER_REGISTRY_CREDENTIALS')
@@ -13,13 +17,20 @@ pipeline {
 
   stages {
 
-    stage('Checkout') {
+    stage('Init') {
       steps {
         sh 'mkdir -p data/web'
-        def folder = new File( 'data/web/drupal' )
-        if( !folder.exists() ) {
-          sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
-        }
+      }
+
+    stage('clone') {
+      when { expression { REPO_EXIXTS == 'true' } }
+      steps {
+        sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
+      }
+    }
+
+    stage('checkout') {
+      steps {
         sh '(cd data/web/drupal && git checkout develop)'
         sh 'make'         
       }
