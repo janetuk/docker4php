@@ -16,11 +16,11 @@ pipeline {
   }
 
   stages {
-
     stage('Init') {
       steps {
         sh 'mkdir -p data/web'
       }
+    }
 
     stage('clone') {
       when { expression { REPO_EXIXTS == 'true' } }
@@ -35,9 +35,6 @@ pipeline {
         sh 'make'         
       }
     }
-    
-}    
-    
   
 //    stage('Test') {
 //      steps {
