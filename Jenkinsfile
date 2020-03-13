@@ -23,9 +23,11 @@ pipeline {
     }
 
     stage('clone') {
-      when { expression { REPO_EXIXTS == 'true' } }
-      steps {
-        sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
+      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        when { expression { REPO_EXISTS == 'true' } }
+        steps {
+          sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
+        }
       }
     }
 
