@@ -8,7 +8,7 @@ do
 #rsync -avP ./$WEB_ROOT/$directory --delete --chmod=oug+rwx  \
 #--no-o --no-g --no-perms  rsync://localhost:${PHP_SYNC_PORT}/example/
 
-docker cp $WEB_ROOT/$directory ${PROJECT_NAME{_php/var/www/html/$directory
+docker cp $WEB_ROOT/$directory ${PROJECT_NAME}_php:/var/www/html/$directory
 
 done
 
