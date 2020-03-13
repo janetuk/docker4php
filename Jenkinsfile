@@ -68,10 +68,10 @@ pipeline {
   post {
     success {
 //      mail to: "XXXXX@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
-      exit 0
+      echo  'succedeed'
     }
     failure {
-      exit 1
+      echo 'failed'
 //      mail to: "XXXXX@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
     }
   }
