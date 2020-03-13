@@ -33,14 +33,14 @@ pipeline {
     stage('checkout') {
       steps {
         sh '(cd data/web/drupal && git checkout develop)'
-        sh 'source .project_name && make'
+        sh 'source .project_name && make && echo PROJECT_NAME=$PROJECT_NAME >  .pname '
       }
     }
     
     stage('composer') {
       steps {
-        sh "echo pn $PROJECT_NAME"
-        sh "export CMD='composer install' ;  sh -c 'make fpmi '"
+        sh "source .pname ; echo pn $PROJECT_NAME"
+        sh "source .pname ; export CMD='composer install' ;  sh -c 'make fpmi '"
       }
     } 
 //    stage('Test') {
