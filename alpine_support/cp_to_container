@@ -33,3 +33,7 @@ docker cp sync_to_nginx      ${PROJECT_NAME}_php:/root/sync
 docker cp retry.php ${PROJECT_NAME}_php:/var/www/html/retry.php
 docker cp retry.php ${PROJECT_NAME}_nginx:/var/www/html/retry.php
 docker exec -i --user root $container chmod -R 777 /root
+
+docker cp  ../rsync-setup/php/settings.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.php
+docker cp  ../rsync-setup/php/settings.local.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.local.php
+
