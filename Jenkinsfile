@@ -16,7 +16,11 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'mkdir -p data/web'
-        sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
+        def folder = new File( 'data/web/drupal' )
+
+        if( !folder.exists() ) {
+          sh 'git clone https://github.com/janetuk/myjisc.git data/web/drupal'
+        }
         sh '(cd data/web/drupal && git checkout develop)'
         sh 'make'         
       }
