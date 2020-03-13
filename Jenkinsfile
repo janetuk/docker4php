@@ -33,7 +33,7 @@ pipeline {
     stage('checkout') {
       steps {
         sh '(cd data/web/drupal && git checkout develop)'
-        sh 'make'         
+        sh 'source .project_name && make'
       }
     }
   
