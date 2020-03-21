@@ -16,11 +16,9 @@ exit 0
 fi
 
 rel=`echo $1 | sed "s@.*/drupal-umami@@" `
-echo $rel
 sync_list_conf="$PWD/sync_list.conf"
 sync_list_exclude_conf="$PWD/sync_list_exclude.conf"
 
-echo $rel
 
 for sync_item in `cat $sync_list_exclude_conf`
 do
