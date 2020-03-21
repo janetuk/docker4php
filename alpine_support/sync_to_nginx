@@ -1,2 +1,2 @@
-rsync -avP /var/www/html/sites --delete --chmod=oug+rwx  \
+rsync -avP /var/www/html/web --delete --chmod=oug+rwx  \
 --no-o --no-g --no-perms  rsync://nginx:873/example
