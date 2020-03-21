@@ -5,10 +5,10 @@ sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"
 for directory in `cat $sync_list_conf`
 do
 
-#rsync -avP ./$WEB_ROOT/$directory --delete --chmod=oug+rwx  \
-#--no-o --no-g --no-perms  rsync://localhost:${PHP_SYNC_PORT}/example/
+rsync -avP ./$WEB_ROOT/$directory --delete --chmod=oug+rwx  \
+--no-o --no-g --no-perms  rsync://localhost:${PHP_SYNC_PORT}/example/
 
-docker cp $WEB_ROOT/$directory ${PROJECT_NAME}_php:/var/www/html/$directory
+#docker cp $WEB_ROOT/$directory ${PROJECT_NAME}_php:/var/www/html/$directory
 
 done
 
