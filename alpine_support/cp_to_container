@@ -30,10 +30,10 @@ docker exec -i --user root $container watchman -- trigger  /var/www/html/$syncDi
 ./update_authorized_keys
 
 docker cp sync_to_nginx      ${PROJECT_NAME}_php:/root/sync
-docker cp retry.php ${PROJECT_NAME}_php:/var/www/html/retry.php
-docker cp retry.php ${PROJECT_NAME}_nginx:/var/www/html/retry.php
+docker cp retry.php ${PROJECT_NAME}_php:${NGINX_SERVER_ROOT}/retry.php
+docker cp retry.php ${PROJECT_NAME}_nginx:${NGINX_SERVER_ROOT/retry.php
 docker exec -i --user root $container chmod -R 777 /root
 
-docker cp  ../rsync-setup/php/settings.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.php
-docker cp  ../rsync-setup/php/settings.local.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.local.php
+#docker cp  ../rsync-setup/php/settings.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.php
+#docker cp  ../rsync-setup/php/settings.local.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.local.php
 
