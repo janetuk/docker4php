@@ -36,4 +36,6 @@ docker exec -i --user root $container chmod -R 777 /root
 
 #docker cp  ../rsync-setup/php/settings.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.php
 #docker cp  ../rsync-setup/php/settings.local.php  ${PROJECT_NAME}_php:/var/www/html/sites/default/settings.local.php
+cd ..
+export CMD="chmod 777 /root/sync ; cd /var/www/html/ ; composer install ; sudo /root/sync ";  make fpmi
 
