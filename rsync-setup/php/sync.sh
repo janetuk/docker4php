@@ -1,17 +1,26 @@
-source `dirname $0`/../../.env
+#!/bin/bash
 
-if [ -f `dirname $0`/../../containerSync ] ; then
+
+
+cd `dirname $0`
+
+source ../../.env
+
+if [ -f ../../containerSync ] ; then
 exit
 fi
 
-if [ -f `dirname $0`/../../$WEB_ROOT/inotifywait.lockfile ] ; then
+if [ -f ../../$SYNC_ROOT/inotifywait.lockfile ] ; then
 echo "Not syncing because of lockfile"
 exit 0
 fi
 
-rel=`echo $1 | sed "s@$PWD/$WEB_ROOT@@" `
-sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"
-sync_list_exclude_conf="$PWD/"`dirname $0`"/sync_list_exclude.conf"
+rel=`echo $1 | sed "s@.*/drupal-umami@@" `
+echo $rel
+sync_list_conf="$PWD/sync_list.conf"
+sync_list_exclude_conf="$PWD/sync_list_exclude.conf"
+
+echo $rel
 
 for sync_item in `cat $sync_list_exclude_conf`
 do
@@ -30,7 +39,7 @@ do
 check=`echo $rel | grep '^\/'$sync_item`
 if [  "X$check" != "X" ] ; then
 echo "syncing"
-rsync -avP ./$WEB_ROOT/$sync_item --delete --chmod=oug+rwx  \
+rsync -avP ../..//$WEB_ROOT/$sync_item --delete --chmod=oug+rwx  \
 --no-o --no-g --no-perms  rsync://localhost:${PHP_SYNC_PORT}/example
 
 exit

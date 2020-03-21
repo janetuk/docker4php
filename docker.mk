@@ -12,7 +12,7 @@ up:
 	@cd $(dir)
 	@rsync-setup/php/setup >& /dev/null
 	@rsync-setup/php/client-start-sync.sh >& /dev/null
-	@rsync-setup/php/watch.sh >& /dev/null &
+	@rsync-setup/php/watch.sh &  # >& /dev/null &
 	@rsync-setup/nginx/setup >& /dev/null
 	@rsync-setup/nginx/client-start-sync.sh >& /dev/null
 	@rsync-setup/nginx/watch.sh >& /dev/null &
