@@ -51,6 +51,8 @@ services:
     command: php-fpm
     ports:
       - "${HOST_PHP_SYNC_PORT}:873"
+    volumes:
+      - ../:/opt/var/www/html
 
   nginx:
     #image: wodby/nginx:$NGINX_TAG
@@ -76,6 +78,9 @@ services:
       - "${HOST_NGINX_SYNC_PORT}:873"
     command:
       nginx
+    volumes:
+      - ../:/opt/var/www/html
+
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"
