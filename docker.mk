@@ -7,7 +7,7 @@ default: up
 up:
 	@echo "Starting up containers for for $(PROJECT_NAME)..."
 	docker-compose pull
-	docker-compose up -d --remove-orphans
+	docker-compose up -d --no-recreate # --remove-orphans
 	@dir=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))        
 	@cd $(dir)
 	@#rsync-setup/php/setup >& /dev/null
@@ -36,18 +36,18 @@ shell:
 
 
 fpm:
-	docker exec --user root -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter name=$(PROJECT_NAME)_php --format '{{ .ID }}'  ) bash
+	docker exec --user root -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter name=$(PROJECT_NAME)_php_1 --format '{{ .ID }}'  ) bash
 
 fpmi:
-	docker exec -i -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter  name=$(PROJECT_NAME)_php --format '{{ .ID }}'  ) sh -c "${CMD}"
+	docker exec -i -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter  name=$(PROJECT_NAME)_php_1 --format '{{ .ID }}'  ) sh -c "${CMD}"
 
 nginxi:
-	docker exec -i -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter  name=$(PROJECT_NAME)_nginx --format '{{ .ID }}'  ) sh -c "${CMD}"
+	docker exec -i -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter  name=$(PROJECT_NAME)_nginx_1 --format '{{ .ID }}'  ) sh -c "${CMD}"
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
 
 nginx:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter name=$(PROJECT_NAME)_nginx  --format '{{ .ID }}'  ) sh
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter name=$(PROJECT_NAME)_nginx_1  --format '{{ .ID }}'  ) sh
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:

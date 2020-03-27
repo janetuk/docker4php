@@ -1,1 +1,4 @@
 export PROJECT_NAME=php_project_`date '+%s'`
+export COMPOSE_PROJECT_NAME=$PROJECT_NAME
+export PROJECT_BASE_URL={COMPOSE_PROJECT_NAME}.localhost
+

@@ -5,7 +5,7 @@ services:
     #image: wodby/mariadb:$MARIADB_TAG
 #    image: mariadb
     image: mariadb:10.2.22
-    container_name: "${PROJECT_NAME}_mariadb"
+    #container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
     environment:
       MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
@@ -28,15 +28,15 @@ services:
 #    volumes:
 #      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
 #      - /path/to/postgres/data/on/host:/var/lib/postgresql/data # I want to manage volumes manually.
-    ports:
-      - "${HOST_MYSQL_PORT}:3306"
+#    ports:
+#      - "${HOST_MYSQL_PORT}:3306"
 
   php:
     #image: knesser2/php
     image: wodby/php:$PHP_TAG
     #build: ./containers/php 
     #image: php-quick:latest
-    container_name: "${PROJECT_NAME}_php"
+    #container_name: "${PROJECT_NAME}_php"
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
       DB_HOST: $DB_HOST
@@ -49,8 +49,8 @@ services:
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
     command: php-fpm
-    ports:
-      - "${HOST_PHP_SYNC_PORT}:873"
+#    ports:
+#      - "${HOST_PHP_SYNC_PORT}:873"
     volumes:
       - ${PWD}/../:/opt/var/www/html
 
@@ -58,7 +58,7 @@ services:
     #image: wodby/nginx:$NGINX_TAG
     #build: ./build/nginx
     image: knesser2/nginx
-    container_name: "${PROJECT_NAME}_nginx"
+    #container_name: "${PROJECT_NAME}_nginx"
     depends_on:
       - php
     environment:
@@ -74,8 +74,8 @@ services:
       - 'traefik.backend=${PROJECT_NAME}_nginx'
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
-    ports:
-      - "${HOST_NGINX_SYNC_PORT}:873"
+#    ports:
+#      - "${HOST_NGINX_SYNC_PORT}:873"
     command:
       nginx
     volumes:
@@ -103,13 +103,13 @@ services:
 
   mailhog:
     image: mailhog/mailhog
-    container_name: "${PROJECT_NAME}_mailhog"
+    #container_name: "${PROJECT_NAME}_mailhog"
     labels:
       - 'traefik.backend=${PROJECT_NAME}_mailhog'
       - 'traefik.port=9025'
       - 'traefik.frontend.rule=Host:mailhog.${PROJECT_BASE_URL}'
-    ports:
-      - "${HOST_MAILHOG_PORT}:8025"
+#    ports:
+#      - "${HOST_MAILHOG_PORT}:8025"
 #  varnish:
 #    image: wodby/varnish:$VARNISH_TAG
 #    container_name: "${PROJECT_NAME}_varnish"
@@ -248,12 +248,12 @@ services:
 #      - 'traefik.port=8080'
 #      - 'traefik.frontend.rule=Host:xhprof.${PROJECT_BASE_URL}'
 
-  traefik:
-    image: traefik:1.7.16
-    container_name: "${PROJECT_NAME}_traefik"
-    command: -c /dev/null --web --docker --logLevel=INFO
-    ports:
-      - "${HOST_TRAEFIK_PORT}:80"
+#  traefik:
+#    image: traefik:1.7.16
+#    container_name: "${PROJECT_NAME}_traefik"
+#    command: -c /dev/null --web --docker --logLevel=INFO
+#    ports:
+#      - "${HOST_TRAEFIK_PORT}:80"
 #      - '8080:8080' # Dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
