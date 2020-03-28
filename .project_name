@@ -1,4 +1,7 @@
-export PROJECT_NAME=php_project_`date '+%s'`
+PROJECT_NAME=php_project_`date '+%s' `
+echo  \
+"
+export PROJECT_NAME=$PROJECT_NAME
 export COMPOSE_PROJECT_NAME=$PROJECT_NAME
-export PROJECT_BASE_URL={COMPOSE_PROJECT_NAME}.localhost
-
+export PROJECT_BASE_URL=${PROJECT_NAME}.localhost
+" > .pname
