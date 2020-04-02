@@ -81,6 +81,22 @@ services:
     volumes:
       - ${PWD}/../:/opt/var/www/html
 
+  lighthouse:
+    image: femtopixel/google-lighthouse
+    depends_on:
+      - nginx 
+    command:
+      tail -f /proc/version
+
+  pa11y:
+    image: digitalist/pa11y-ci:latest 
+    depends_on:
+      - nginx
+    entrypoint:
+      /usr/bin/tail -f /proc/version
+    command:
+      /usr/bin/tail -f /proc/version
+
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"
