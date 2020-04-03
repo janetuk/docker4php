@@ -89,7 +89,8 @@ services:
       tail -f /proc/version
 
   pa11y:
-    image: digitalist/pa11y-ci:latest 
+#    image: digitalist/pa11y-ci:latest 
+    image: reubenporter123/alpine-node-pa11yci:1.0
     depends_on:
       - nginx
     entrypoint:
