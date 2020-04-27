@@ -31,9 +31,7 @@ prune:
 ps:
 	@docker ps --filter name='$(PROJECT_NAME)*'
 
-shell:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_php_cli' --format "{{ .ID }}") sh
-
+shell: fpm
 
 fpm:
 	docker exec --user root -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell  docker ps --filter ancestor=knesser2/php --format '{{ .ID }}'  ) bash

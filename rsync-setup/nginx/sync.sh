@@ -1,7 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 source `dirname $0`/../../.env
-rel=`echo $1 | sed "s@$PWD/jisc-collections-symfony@@" `
-sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"
+SAVEPWD=$PWD
+cd ../../
+
+rel=`echo $1 | sed "s@.*jisc-collections-symfony@@" `
+sync_list_conf="$SAVEPWD/sync_list.conf"
 for sync_item in `cat $sync_list_conf`
 do
 

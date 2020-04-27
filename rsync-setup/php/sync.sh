@@ -1,11 +1,16 @@
+#!/bin/bash 
+
+cd `dirname $0`
+SAVEPWD=$PWD
+cd ../..
 if [ -f `dirname $0`/../../jisc-collections-symfony/inotifywait.lockfile ] ; then
 echo "Not syncing because of lockfile"
 exit 0
 fi
 
-rel=`echo $1 | sed "s@$PWD/jisc-collections-symfony@@" `
-sync_list_conf="$PWD/"`dirname $0`"/sync_list.conf"
-sync_list_exclude_conf="$PWD/"`dirname $0`"/sync_list_exclude.conf"
+rel=`echo $1 | sed "s@.*jisc-collections-symfony@@" `
+sync_list_conf="$SAVEPWD/sync_list.conf"
+sync_list_exclude_conf="$SAVEPWD/sync_list_exclude.conf"
 
 for sync_item in `cat $sync_list_exclude_conf`
 do
