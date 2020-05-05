@@ -28,9 +28,10 @@ for x in $files
 do
 
 local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's/src/src.save/'`
-real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's@src@jisc-collections-symfony/src@'`
+real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's@src@jisc-collections-symfony/src@'| sed 's@templates@jisc-collections-symfony/templates@'`
 echo "$local_file -> $real_local_file"
 #docker cp ${container}:$x $local_file
+mkdir -p `dirname $real_local_file`
 cp $local_file  $real_local_file
 
 done
