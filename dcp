@@ -32,7 +32,11 @@ real_local_file=`echo $x | sed 's@/var/www/html/@@' | sed 's@src@jisc-collection
 echo "$local_file -> $real_local_file"
 #docker cp ${container}:$x $local_file
 mkdir -p `dirname $real_local_file`
-cp $local_file  $real_local_file
+diff $local_file  $real_local_file 2>/dev/null >/dev/null
+status=$?
 
+if [ "$status" != "0" ] ; then
+cp $local_file  $real_local_file
+fi
 done
 
