@@ -42,15 +42,16 @@ services:
       DB_USER: $DB_USER
       DB_PASSWORD: $DB_PASSWORD
       DB_NAME: $DB_NAME
-      PHP_FPM_USER: wodby
-      PHP_FPM_GROUP: wodby
+      PHP_FPM_USER: 504
+      PHP_FPM_GROUP: 20
       PHP_MEMORY_LIMIT: 4024M
       PHP_FPM_PM_MAX_SPARE_SERVERS: 1
       PHP_FPM_PM_START_SERVERS: 1
     command: php-fpm
     ports:
       - 10873:873       
-
+    volumes:
+      - ./jisc-collections-symfony:/var/www/html
   nginx:
     #image: wodby/nginx:$NGINX_TAG
     build: ./build/nginx
@@ -72,6 +73,9 @@ services:
       - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
     ports:
       - 20873:873
+    volumes:
+      - ./jisc-collections-symfony:/var/www/html
+
 #  apache:
 #    image: wodby/apache:$APACHE_TAG
 #    container_name: "${PROJECT_NAME}_apache"

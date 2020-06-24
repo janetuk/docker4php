@@ -8,15 +8,16 @@ up:
 	@echo "Starting up containers for for $(PROJECT_NAME)..."
 	docker-compose pull
 	docker-compose up -d --remove-orphans
-	@dir=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))        
-	@cd $(dir)
-	@rsync-setup/php/setup >& /dev/null
-	@rsync-setup/php/client-start-sync.sh  >& /dev/null
-	@rsync-setup/php/watch.sh >& /dev/null &
-	@rsync-setup/nginx/setup >& /dev/null
-	@rsync-setup/nginx/client-start-sync.sh >& /dev/null
-	@rsync-setup/nginx/watch.sh >& /dev/null & 
-	@alpine_support/cp_to_container >& /dev/null 
+#	@dir=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))        
+#	@cd $(dir)
+#	@rsync-setup/php/setup >& /dev/null
+#	@rsync-setup/php/client-start-sync.sh  >& /dev/null
+#	@rsync-setup/php/watch.sh >& /dev/null &
+#	@rsync-setup/nginx/setup >& /dev/null
+#	@rsync-setup/nginx/client-start-sync.sh >& /dev/null
+#	@rsync-setup/nginx/watch.sh >& /dev/null & 
+#	@alpine_support/cp_to_container >& /dev/null 
+
 down: stop
 
 stop:
