@@ -1,3 +1,24 @@
+# Docker edge customisations:
+
+Update docker-compose.yml
+
+```id -u``` => add to PHP_FPM_USER
+```id -g``` => add to PHP_FPM_GROUP
+
+eg
+
+```
+      PHP_FPM_USER: 504
+      PHP_FPM_GROUP: 20
+```
+
+You will probably need to login to the fpm container as root and 
+
+```make fpm```
+```chmod -R 777 /mnt/files/sessions```
+```exit```
+
+
 # Docker-based PHP stack
 
 [![Build Status](https://travis-ci.org/wodby/docker4php.svg?branch=master)](https://travis-ci.org/wodby/docker4php)
