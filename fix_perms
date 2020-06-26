@@ -1,0 +1,1 @@
+export CMD="chmod -R 777 /mnt/" ; make fpmi
