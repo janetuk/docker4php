@@ -1,1 +1,6 @@
 export CMD="chmod -R 777 /mnt/" ; make fpmi
+
+uid=`id -u`
+export CMD="grep ^default /etc/passwd > /tmp/check.$$  ; if [ ! -s /tmp/check.$$ ] ; then echo 'default:x:$uid:0:user for mssql:/tmp:/bin/bash' >> /etc/passwd ; fi "
+make fpmi
+
